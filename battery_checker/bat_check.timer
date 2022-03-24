@@ -1,0 +1,8 @@
+[Unit]
+Description=Check battery level every 2mins
+
+[Timer]
+OnCalendar=*:0/2
+
+[Install]
+WantedBy=timers.target

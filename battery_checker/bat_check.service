@@ -1,0 +1,13 @@
+[Unit]
+Description=Check battery and notify if too low
+
+[Service]
+Type=oneshot
+Environment=BAT_LOW_LEVEL=15
+Environment=BAT_CRITICAL_LEVEL=7
+ExecStart=/home/hyx/.local/bin/bat_check.sh
+ProtectSystem=strict
+ReadOnlyPaths=/sys/class/power_supply
+
+[Install]
+WantedBy=default.target
