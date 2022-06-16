@@ -14,7 +14,7 @@ fi
 
 USER_INPUT=$1
 INSTALLED_JVMS=`ls -1A --ignore="default*" $INSTALLATION_DIR`
-FILTERED_JAVA=(`echo "$INSTALLED_JVMS" | grep "$USER_INPUT"`)
+FILTERED_JAVA=(`echo "$INSTALLED_JVMS" | grep -- "$USER_INPUT"`)
 INSTALLED_JVMS=(`echo "$INSTALLED_JVMS"`)
 
 if [ ${#FILTERED_JAVA[@]} -eq 0 ]; then
