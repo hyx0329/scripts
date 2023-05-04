@@ -1,6 +1,6 @@
 #!/bin/bash
 # meant to be a `wall` alternative
-# need: getopt, tty, date
+# need: getopt, tty, date, ps, grep, awk, bash
 
 usage="
 Usage:
@@ -59,7 +59,7 @@ fi
 # try to write some udev rules and/or create a special group,
 # or add your user to desired groups.
 
-# output, here use tee to print on the cli as well
+# output
 for TTY_TO in $terminals_list; do
   echo -e "$pre$*$post" > "/dev/$TTY_TO"
 done
