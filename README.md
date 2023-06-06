@@ -10,3 +10,4 @@ java-version-set.sh | Open a new shell giving priority to a specified java versi
 wall.sh | A replacement for UNIX `wall`, works for all terminal(tty/pts).
 xdisplay-menu.sh | A rofi menu for autorandr.
 xrandr-tool.sh | Common actions when using xrandr to adjust the display layout.
+clipboard-ocr | Read image from clipboard and run tesseract-ocr on it, then write the result to clipboard.

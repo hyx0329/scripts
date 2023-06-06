@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# A script to read image from clipboard and run OCR on it, save the result to clipboard
+# For Wayland/GNOME, can configure to be called by `wl-paste -w` or after screen shot
+
+# requirements:
+#   wl-clipboard(wl-copy, wl-paste)
+#   tesseract
+
+# settings for ocr
+OCR_LANGUAGES=(
+    "eng"
+    "chi_sim"
+    "jpn"
+)
+
+OCR_LANG_PARAM=""
+for language in ${OCR_LANGUAGES[@]}; do
+    if [ -n "$OCR_LANG_PARAM" ]; then
+        OCR_LANG_PARAM="$OCR_LANG_PARAM+$language"
+    else
+        OCR_LANG_PARAM="-l $language"
+    fi
+done
+
+get_mimetype() {
+    wl-paste --no-newline --list-types
+}
+
+read_clipboard() {
+    # This will send to stdout
+    wl-paste --no-newline
+}
+
+write_clipboard() {
+    wl-copy --trim-newline
+}
+
+run_ocr() {
+    # do ocr and save to clipboard, no quote for param
+    read_clipboard | tesseract - - $OCR_LANG_PARAM | write_clipboard
+}
+
+_main() {
+    MIME_TYPE=$(get_mimetype)
+
+    case "$MIME_TYPE" in
+        *"image/"*)
+            # is image, run ocr
+            run_ocr
+            ;;
+        *)
+            # ignore other
+            ;;
+    esac
+}
+
+_main
